@@ -3,10 +3,12 @@ const WebSocket = require('ws');
 module.exports = (function(){
     let _client = null;
     let _messageHandler = (message)=>{console.warn('messageHandler not defined');};
+    let _refreshHandler = () =>{ console.warn('refreshHandler not defined ');}
+    //..................
     const handlers = {
-        open:()=>{
+        open:async ()=>{
             console.log('connected to server');
-            //subscribe to clint
+            await _refreshHandler();
             _client.send(`{"command": "subscribe", "channel": 1002}`)
         },
         message:(message)=>{
@@ -14,20 +16,26 @@ module.exports = (function(){
             //   console.log('received: %s', message);
         }
     };
+    //..................
     const reconnect = () =>{
         console.log('recconnecting...');
         setTimeout(connect,100)
-    }
+    };
+    //..................
     const connect = () => {
         _client = new WebSocket('wss://api2.poloniex.com');
         _client.on('open',handlers.open);
         _client.on('message',handlers.message);
         _client.on('close',reconnect);
     };
+    //..................
     return{
         connect,
         set handleMessage(messageHandler){
             _messageHandler = messageHandler
+        },
+        set handleRefresh(refreshHandler){
+            _refreshHandler = refreshHandler
         },
         get getClient(){
             return _client;
