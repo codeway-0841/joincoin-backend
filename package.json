@@ -16,7 +16,10 @@
   "dependencies": {
     "axios": "^0.21.1",
     "dotenv": "^8.2.0",
+    "joi": "^17.4.0",
+    "jsonwebtoken": "^8.5.1",
     "koa": "^2.13.1",
+    "koa-bodyparser": "^4.3.0",
     "koa-router": "^10.0.0",
     "mongoose": "^5.11.15",
     "mongoose-double": "^0.0.1",

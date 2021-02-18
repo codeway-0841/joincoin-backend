@@ -6,13 +6,12 @@ const{
 
 const Koa = require('koa');
 const Router = require('koa-router');
+const bodyParser = require('koa-bodyparser');
 const api = require('./api');
 const db = require('./db');
 db.connect();
-
-
 const app = new Koa();
-
+app.use(bodyParser());
 
 
 const router = new Router();

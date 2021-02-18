@@ -84,6 +84,6 @@ socket.handleMessage = (message)=>{
 
 socket.handleRefresh = () =>{
     updateEntireRate();
-    // registerInitialExchangeRate();
+    registerInitialExchangeRate();
 }
 
