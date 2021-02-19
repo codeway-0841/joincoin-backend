@@ -8,5 +8,6 @@ auth.get('/',(ctx)=>{
 });
 
 auth.post('/register/local',authCtlr.localRegister);
+auth.post('/login/local',authCtlr.localLogin);
 
 module.exports = auth;
