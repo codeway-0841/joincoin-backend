@@ -2,6 +2,8 @@ const Joi = require('joi');
 const User = require('db/models/User');
 const token = require('lib/token');
 
+
+//............................................
 exports.localRegister = async (ctx) =>{
     const { body } = ctx.request;
 
@@ -41,12 +43,7 @@ exports.localRegister = async (ctx) =>{
             displayName,email,password
         })
         ctx.body = user;
-        const accessToken = await token.generateToken({
-            user:{
-                _id:user._id,
-                 displayName
-            }
-        },'user');
+        const accessToken = await token.generateToken();
         console.log(accessToken);
         //configure accessToken to httpOnly cookies
         ctx.cookies.set('access_token',accessToken,{
@@ -58,3 +55,7 @@ exports.localRegister = async (ctx) =>{
     }
 
 };
+//............................................
+// exports.localLogin = async (ctx) => {
+
+// };

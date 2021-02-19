@@ -1,7 +1,9 @@
 const mongoose = require('mongoose');
 const {Schema} = mongoose;
-const {PASSWORD_HASH_KEY:secret} = process.env;
 const crypto = require('crypto');
+const token = require('lib/token');
+
+const {PASSWORD_HASH_KEY:secret} = process.env;
 
 function hash(password){
     return crypto.createHmac('sha256', secret)
@@ -59,6 +61,20 @@ User.statics.localRegister = function({displayName,password,email}){
     return user.save();
 };
 //............................................
+User.methods.validatePassword = function(password){
+    const hashed  = hash(password);
+    return this.password === hashed;
+}
+//............................................
+User.methods.generateToken = function () {
+    const {_id,displayName} = this;
+    return token.generateToken({
+        user:{
+            _id,
+             displayName
+        }
+    },'user');
+    };
 
 
 module.exports = mongoose.model('User',User);
