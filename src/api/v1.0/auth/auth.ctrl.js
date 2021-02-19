@@ -41,8 +41,14 @@ exports.localRegister = async (ctx) =>{
         const user = await User.localRegister({
             displayName,email,password
         })
-        ctx.body = user;
-        const accessToken = await token.generateToken();
+
+        ctx.body = {
+            displayName,
+            _id:user._id,
+            metaInfo:user.metaInfo
+        };
+
+        const accessToken = await user.generateToken();
         console.log(accessToken);
         //configure accessToken to httpOnly cookies
         ctx.cookies.set('access_token',accessToken,{
@@ -93,8 +99,27 @@ exports.localLogin = async (ctx) => {
             httpOnly:true,
             maxAge:1000*60*60*24*7
         });
+
+        const {displayName,_id,metaInfo} = user;
+        ctx.body = {
+            displayName,
+            _id,
+            metaInfo
+        };
     }catch(e){
         ctx.status = 500;
     }
 
+};
+//............................................
+exports.check = (ctx) => {
+    const {user} = ctx.request;
+    console.log(user);
+    if(!user){
+        ctx.status = 403;
+        return;
+    }
+    ctx.body = {
+        user
+    };
 };

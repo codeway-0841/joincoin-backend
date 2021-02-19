@@ -30,7 +30,7 @@ const User = new Schema({
         type:Date,
         default:Date.now
     },
-    metalInfo:{
+    metaInfo:{
         activated:{type:Boolean,default:false}
     }
 });

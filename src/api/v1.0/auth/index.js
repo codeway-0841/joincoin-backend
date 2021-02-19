@@ -9,5 +9,5 @@ auth.get('/',(ctx)=>{
 
 auth.post('/register/local',authCtlr.localRegister);
 auth.post('/login/local',authCtlr.localLogin);
-
+auth.get('/check',authCtlr.check);
 module.exports = auth;
