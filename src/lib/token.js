@@ -11,9 +11,21 @@ function  generateToken(payload,subject) {
             },(error,token) => {
                 if(error) reject(error);
                 resolve(token);
-            })
+            });
         }
-    )
+    );
+}
+
+function decodeToken(token) {
+    return new Promise(
+        (resolve,reject) =>{
+            jwt.verify(token,secret,(error,decoded) => {
+                if(error) reject(error);
+                resolve(decoded);
+            });
+        }
+    );
 }
 
 exports.generateToken = generateToken;
+exports.decodeToken = decodeToken;
