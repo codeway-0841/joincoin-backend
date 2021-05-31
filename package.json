@@ -23,7 +23,7 @@
     "koa-router": "^10.0.0",
     "mongoose": "^5.11.15",
     "mongoose-double": "^0.0.1",
-    "ws": "^7.4.3"
+    "ws": "^7.4.6"
   },
   "scripts": {
     "start:dev": "NODE_PATH=src nodemon --watch src/ src/index.js",
